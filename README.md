@@ -16,7 +16,7 @@ This Repository contains a tool for webscraping images from dp challenge and gen
 
 Each image has an average of 210 ratings 1-10, these can be used to compute a probability distribution of each image and Mean Observed Score (MOS). Whether training a binary classifier of regression this score is used as groud truth.
 
-
+![txt](appendix_docs/mos_rating.png)
 ### Part 1:
 
 in a new python 3.10 virtual enviroment
