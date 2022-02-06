@@ -12,31 +12,33 @@ from tqdm import tqdm
 import json
 import numpy as np
 
+
 class Image_scrape:
-    def __init__(self):  
+    def __init__(self):
         self.did = 'dp_challenge_new_images'
-        self.not_scraped_dict = { }
-        self.url_missformated = { }
+        self.not_scraped_dict = {}
+        self.url_missformated = {}
         self.base = 'https://images.dpchallenge.com/images_challenge/'
-        
+
     def get_meta(self):
 
         with open('full_dp_challange_data_dict.json', 'r') as fid:
             self.meta_data = json.load(fid)
 
-    def url_from_meta(self,data_dict=None):
-        keys_to_exclude = {'imageremoved_page' ,'imagechallenge/hidden.png_page',
-                           'subset_all','Average Score: '}
+    def url_from_meta(self, data_dict=None):
+        keys_to_exclude = {'imageremoved_page', 'imagechallenge/hidden.png_page',
+                           'subset_all', 'Average Score: '}
         challenges = [i for i in data_dict.keys() if i.isnumeric()]
-        urls = {} 
+        urls = {}
         print(len(challenges))
         for challenge in challenges:
             im_keys = [data_dict[challenge][i] for i in data_dict[challenge]]
-            im_keys = [i for i in im_keys if type(i)==dict] 
-            image_urls = [i['link'] for i in im_keys if not set(set(i.keys()) & keys_to_exclude) ]
+            im_keys = [i for i in im_keys if type(i) == dict]
+            image_urls = [i['link'] for i in im_keys if not set(
+                set(i.keys()) & keys_to_exclude)]
             for url in image_urls:
-                key = url.split('/Copyrighted_Image_Reuse_Prohibited_')[1] 
-                urls[key]='https:'+url.replace('/120/','/1200/')
+                key = url.split('/Copyrighted_Image_Reuse_Prohibited_')[1]
+                urls[key] = 'https:'+url.replace('/120/', '/1200/')
         return urls
 
     def get_uniqe(self):
@@ -46,52 +48,52 @@ class Image_scrape:
         print(len(image_ids))
         df = pd.read_csv('AVA_data_official_test.csv')
         current_ava = set(df['image_name'].values)
-        unique = current_ava ^ image_ids ^ scraped_ids 
-        not_unique = set.union( image_ids ^ unique )
+        unique = current_ava ^ image_ids ^ scraped_ids
+        not_unique = set.union(image_ids ^ unique)
         print(len(image_ids),  len(unique), len(not_unique))
         if len(unique)+len(not_unique):
             print(len(unique)+len(not_unique))
-            self.to_scrape = {i:all_image_urls[i] for i in unique if i in all_image_urls}
+            self.to_scrape = {i: all_image_urls[i]
+                              for i in unique if i in all_image_urls}
             if not any([i in current_ava for i in self.to_scrape]):
                 print(f'''there are not scraped image in to scrap dict, has :{len(self.to_scrape)}
                 unique images, total of {len(self.to_scrape)+len(not_unique)}''')
+
     def scrape(self):
-     
+
         keys = np.array([i for i in self.to_scrape])
         np.random.shuffle(keys)
         constant = 100
-        batches = [keys[i-constant:i] for i in range(constant,len(keys),constant)]
+        batches = [keys[i-constant:i]
+                   for i in range(constant, len(keys), constant)]
         len(batches)
 
         if not os.path.exists(self.did):
             os.mkdir(self.did)
-        for batch in tqdm(batches,colour=('#FF69B4'),position=0,leave=False):
+        for batch in tqdm(batches, colour=('#FF69B4'), position=0, leave=False):
             sleep_for = sum(np.random.random_sample(1))
             time.sleep(sleep_for*60)
-            for image in tqdm(batch,colour=('#ff1493'), position=0,leave=False):
+            for image in tqdm(batch, colour=('#ff1493'), position=0, leave=False):
                 self.fid = self.did+'/'+image
                 url = self.to_scrape[image]
-                if self.base in url: 
+                if self.base in url:
                     try:
                         response = requests.get(url, stream=True).raw
                         im = Image.open(response)
                         im.save(self.fid)
                         time.sleep(sleep_for*2)
                     except:
-                        self.not_scraped_dict[image]=url
+                        self.not_scraped_dict[image] = url
                         ns_ = 'not_scraped.json'
-                        with open(ns_, 'w') as fid: 
+                        with open(ns_, 'w') as fid:
                             json.dump(self.not_scraped, fid)
-                        print(f'url : {url} not scraped, logged in {ns_} at {image} ')
+                        print(
+                            f'url : {url} not scraped, logged in {ns_} at {image} ')
 
                 else:
                     ns_format = 'missformed.json'
-                    print(f'missformatee url = {url}, loged in {ns_format} at {image}')
-                    url_s_missformated[image]=url
+                    print(
+                        f'missformatee url = {url}, loged in {ns_format} at {image}')
+                    url_s_missformated[image] = url
                     with open('missformeted_urls.json', 'w') as fid:
                         json.dump(url_s_missformated, fid)
-
-
-
-
-            
