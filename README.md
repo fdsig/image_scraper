@@ -1,8 +1,17 @@
-## DP Challenge Full Site Scraper
+## DP Challenge Full Site Scraper 
+
+www.dpchallenge.com images and crowd sourced meta data is the largest single source of image quality dataset availbel and is the source of the Aesthetic Visual Analisis (AVA) dataset. Since AVA was innitially scraped there is a significant amount of new metat data. Additionally Cammeral meta data and full comments are missing.
+
+The purpuse of aquireing more data is here is threefold:
+- addressing class imballance;
+- provide more data for models that requrie a higher number of images to train (Vision Transformers);
+- To scrape natural language data for training multi modal transformers (Vision/NLP).
+
+This web  scraper is working but currently under development
 
 This Repository contains a tool for webscraping images from dp challenge and generating a data dictionary of images.
 
-##### Part 1:
+### Part 1:
 
 in a new python 3.10 virtual enviroment
 
@@ -19,7 +28,7 @@ the above is a roadmap for obatinign images and further meta data such as commen
 There is an example of a json file that has all images 
 
 
-##### part 2:
+### part 2:
 
 Scrapes images from individual urls. There are two types of image url:
 
@@ -30,11 +39,13 @@ Example image scraped form dp [challenge.com](https://www.dpchallenge.com/)
 
 ![txt](ava_images_new/1162319.jpg)
 
-a list of competition/challenges pages [avalable on dpchallenge](https://www.dpchallenge.com/challenge_history.php?order_by=0d&open=1&member=1&speed=1&invitational=1&show_all=1)
 
-an example challange page where image urls are derived can be found [here](https://www.dpchallenge.com/challenge_results.php?CHALLENGE_ID=3257&show_full=1)
+### Example pages:
+-  Example list of competition/challenges pages [avalable on dpchallenge](https://www.dpchallenge.com/challenge_history.php?order_by=0d&open=1&member=1&speed=1&invitational=1&show_all=1)
 
-an example image page is [here](https://www.dpchallenge.com/image.php?IMAGE_ID=1263084) 
+- Example challange page where image urls are derived can be found [here](https://www.dpchallenge.com/challenge_results.php?CHALLENGE_ID=3257&show_full=1)
+
+- Example image page is [here](https://www.dpchallenge.com/image.php?IMAGE_ID=1263084) 
 
 
 
