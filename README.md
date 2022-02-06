@@ -1,6 +1,6 @@
 ## DP Challenge Full Site Scraper 
 
-www.dpchallenge.com images and crowd sourced meta data is the largest single source of image quality dataset availbel and is the source of the Aesthetic Visual Analisis (AVA) dataset. Since AVA was innitially scraped there is a significant amount of new metat data. Additionally Cammera meta data and full comments are missing.
+www.dpchallenge.com images and crowd sourced meta data is the largest single source of image quality dataset availbel and is the source of the Aesthetic Visual Analisis (AVA) dataset. Since the AVA benchmarking dataset was innitially scraped in 2012 there is a significant amount of new images and associated meta data. Additionally Cammera meta data and full comments are missing.
 
 The purpuse of aquireing more data is here is fourfold:
 - Addressing class imballance(AVA has more positive than negatively rated images);
@@ -14,18 +14,21 @@ This Repository contains a tool for webscraping images from dp challenge and gen
 
 ## Context:
 
-Each image has an average of 210 ratings 1-10, these can be used to compute a probability distribution of each image and Mean Observed Score (MOS). Whether training a binary classifier of regression this score is used as groud truth.
+Each image has an average of 210 ratings 1-10, these can be used to compute a probability distribution of each image and mean observed score (MOS). Whether training a binary classifier of regression this score is used as groud truth.
 
 Below shows distribution of scores vs Gaussina probability density function (pdf):
 
 ![txt](appendix_docs/ava_paramiters.png)
 
-Bellow shows realtaionship between competion (challange ID) and MOS
+Below shows realtaionship between competion (challange ID) and MOS:
+
 ![txt](appendix_docs/mos_rating.png)
 
-### Part 1:
 
-in a new python 3.10 virtual enviroment
+## Part 1:
+
+#### Instructions
+In a new python 3.10 virtual enviroment
 
 ```bash
 pip install -r requriments.txt
@@ -40,7 +43,7 @@ the above is a roadmap for obatinign images and further meta data such as commen
 There is an example of a json file that has all images 
 
 
-### part 2:
+## part 2:
 
 Scrapes images from individual urls. There are two types of image url:
 
