@@ -7,7 +7,7 @@ This Repository contains a tool for webscraping images from dp challenge and gen
 in a new python 3.10 virtual enviroment
 
 ```bash
-pip install requriments.txt
+pip install -r requriments.txt
 python main.py --api_key 'your_scraper_api' --get_meta 
 ```
 >> - Generates a json file of image meta data and urls form competition pages.
