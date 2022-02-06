@@ -1,15 +1,21 @@
 ## DP Challenge Full Site Scraper 
 
-www.dpchallenge.com images and crowd sourced meta data is the largest single source of image quality dataset availbel and is the source of the Aesthetic Visual Analisis (AVA) dataset. Since AVA was innitially scraped there is a significant amount of new metat data. Additionally Cammeral meta data and full comments are missing.
+www.dpchallenge.com images and crowd sourced meta data is the largest single source of image quality dataset availbel and is the source of the Aesthetic Visual Analisis (AVA) dataset. Since AVA was innitially scraped there is a significant amount of new metat data. Additionally Cammera meta data and full comments are missing.
 
-The purpuse of aquireing more data is here is threefold:
-- addressing class imballance;
-- provide more data for models that requrie a higher number of images to train (Vision Transformers);
+The purpuse of aquireing more data is here is fourfold:
+- Addressing class imballance(AVA has more positive than negatively rated images);
+- Provide more data for models that requrie a higher number of images to train (Vision Transformers);
 - To scrape natural language data for training multi modal transformers (Vision/NLP).
+- Prediction of camera settings from camera data.
 
 This web  scraper is working but currently under development
 
 This Repository contains a tool for webscraping images from dp challenge and generating a data dictionary of images.
+
+## Context:
+
+Each image has an average of 210 ratings 1-10, these can be used to compute a probability distribution of each image and Mean Observed Score (MOS). Whether training a binary classifier of regression this score is used as groud truth.
+
 
 ### Part 1:
 
